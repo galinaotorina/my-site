@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Научный гид по средствам от выпадения волос</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #FAF8F5;
+            --color-text: #2C2C2C;
+            --color-text-light: #5A5A5A;
+            --color-accent: #7B9E87;
+            --color-accent-light: #A8C7B6;
+            --color-accent-dark: #4A6B57;
+            --color-border: #E8E4DD;
+            --color-highlight: #FFF9E6;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Source Sans 3', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--color-text);
+            background: var(--color-bg);
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            opacity: 0.95;
+            font-style: italic;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: -40px auto 0;
+            padding: 0 20px 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .intro-card {
+            background: white;
+            border-radius: 16px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            margin-bottom: 60px;
+            border-left: 4px solid var(--color-accent);
+        }
+
+        .intro-card p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .intro-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .intro-card li {
+            padding-left: 35px;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .intro-card li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-size: 1.2rem;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 16px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            animation: fadeInUp 0.6s ease-out backwards;
+            animation-delay: calc(var(--section-index) * 0.1s);
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-accent-dark);
+            margin-bottom: 30px;
+            line-height: 1.3;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-accent) 0%, transparent 100%);
+        }
+
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 1.9rem;
+            font-weight: 600;
+            color: var(--color-accent-dark);
+            margin-top: 35px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--color-text);
+        }
+
+        strong {
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        em {
+            color: var(--color-text-light);
+            font-style: italic;
+        }
+
+        ul, ol {
+            margin-bottom: 25px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        li {
+            padding-left: 35px;
+            position: relative;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        ul li::before {
+            content: '•';
+            position: absolute;
+            left: 10px;
+            color: var(--color-accent);
+            font-size: 1.4rem;
+            line-height: 1.6;
+        }
+
+        ol {
+            counter-reset: item;
+        }
+
+        ol li::before {
+            content: counter(item) ".";
+            counter-increment: item;
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: 600;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+        }
+
+        .highlight-box {
+            background: var(--color-highlight);
+            border-left: 4px solid var(--color-accent);
+            padding: 25px 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .warning-box {
+            background: #FFF5F5;
+            border-left: 4px solid #E57373;
+            padding: 25px 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .checklist {
+            background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 100%);
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 40px;
+            border: 2px solid var(--color-border);
+        }
+
+        .checklist h3 {
+            margin-top: 0;
+            color: var(--color-accent-dark);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .checklist-item {
+            margin-bottom: 30px;
+        }
+
+        .checklist-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .sources {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid var(--color-border);
+        }
+
+        .sources h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+        }
+
+        .sources ol li {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .sources a {
+            color: var(--color-accent-dark);
+            text-decoration: none;
+            border-bottom: 1px solid var(--color-accent-light);
+            transition: all 0.3s ease;
+        }
+
+        .sources a:hover {
+            color: var(--color-accent);
+            border-bottom-color: var(--color-accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .intro-card,
+            .content-section {
+                padding: 30px 25px;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+            }
+
+            body {
+                font-size: 17px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>Мини-гид по средствам от выпадения волос</h1>
+            <p class="subtitle">От мастера, который любит науку не меньше чем красивые стрижки</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="intro-card">
+            <p><strong>Задача этого текста простая</strong> — разложить по полочкам:</p>
+            <ul>
+                <li>что реально работает по медицинским данным</li>
+                <li>что может помогать как поддержка</li>
+                <li>что пока красиво звучит, но не доказано</li>
+            </ul>
+            <p style="margin-top: 25px;">Все выводы опираются на реальные исследования и обзоры, а не на фантазии.</p>
+        </div>
+
+        <section class="content-section" style="--section-index: 1">
+            <h2>1. С чего вообще начинается работа с выпадением</h2>
+            
+            <p><strong>Говорю честно и сразу:</strong> ни одна сыворотка не перекроет проблемы с щитовидкой или сильный дефицит железа.</p>
+            
+            <p>По данным дерматологов и трихологов, телогеновое выпадение часто связано с:</p>
+            
+            <ol>
+                <li>низким ферритином и железом</li>
+                <li>дефицитом витамина D и В12</li>
+                <li>проблемами щитовидной железы</li>
+                <li>стрессом, операциями, родами, резкими диетами</li>
+            </ol>
+            
+            <div class="highlight-box">
+                <p><strong>Поэтому первый взрослый шаг — это:</strong></p>
+                <ul>
+                    <li>врач (дерматолог или трихолог)</li>
+                    <li>базовые анализы по назначению врача</li>
+                </ul>
+            </div>
+            
+            <p><em>Только после этого имеет смысл обсуждать баночки.</em></p>
+        </section>
+
+        <section class="content-section" style="--section-index: 2">
+            <h2>2. Что действительно работает по серьезным исследованиям</h2>
+            
+            <h3>2.1. Миноксидил</h3>
+            
+            <p>Миноксидил — это единственное наружное средство, которое крупные медицинские организации официально признают рабочим при андрогенетической алопеции у мужчин и женщин.</p>
+            
+            <p><strong>Что он делает:</strong></p>
+            <ol>
+                <li>увеличивает долю волос в фазе роста</li>
+                <li>ускоряет переход фолликулов в фазу роста</li>
+                <li>увеличивает диаметр волоса</li>
+            </ol>
+            
+            <p><strong>Что важно честно проговаривать:</strong></p>
+            
+            <div class="warning-box">
+                <p><strong>Миноксидил работает, пока его используют.</strong> Когда человек перестает его наносить, волосы, которые держались на препарате, постепенно теряются, и всё возвращается к исходной картинке. Это не страшный «синдром отмены». Это обычное прекращение действия лекарства.</p>
+            </div>
+            
+            <div class="warning-box">
+                <p><strong>Это лекарство, а не косметика.</strong> Есть противопоказания и побочные эффекты. Прежде чем начинать (особенно при проблемах с сердцем и давлением, беременности или грудном вскармливании), нужно обсудить это с врачом.</p>
+            </div>
+            
+            <h3>2.2. Лекарства внутрь</h3>
+            
+            <p><strong>Это уже зона врача.</strong> Финастерид, дутастерид для мужчин, антиандрогены для женщин, спиронолактон и другие схемы.</p>
+            
+            <p>Эти препараты:</p>
+            <ul>
+                <li>уменьшают влияние андрогенов на волосяные фолликулы</li>
+                <li>реально тормозят прогрессирование андрогенетической алопеции</li>
+            </ul>
+            
+            <p><strong>Но:</strong> самостоятельно их не пьют никогда. Это рецептурная история под наблюдением доктора.</p>
+            
+            <p><em>В моем гиде я не назначаю таблетки — я обозначаю честно, что такие схемы есть и что ими ведает только врач.</em></p>
+        </section>
+
+        <section class="content-section" style="--section-index: 3">
+            <h2>3. Что может помогать, но не заменяет лечение</h2>
+            
+            <p>Тут начинается моё любимое поле — современная космецевтика и активные компоненты в составах.</p>
+            
+            <h3>3.1. Пептиды для волос</h3>
+            
+            <p>Сюда относятся:</p>
+            <ul>
+                <li><strong>Capixyl</strong> — ацетил тетрапептид-3 плюс экстракт красного клевера</li>
+                <li><strong>Procapil</strong> — биотиноил трипептид-1 плюс апигенин и олеаноловая кислота</li>
+                <li><strong>медные пептиды</strong> — разные варианты медных трипептидов</li>
+            </ul>
+            
+            <p><strong>Что про них известно по науке:</strong></p>
+            <ul>
+                <li>есть лабораторные работы, где пептиды стимулируют клетки дермального сосочка и продлевают фазу роста волоса</li>
+                <li>есть небольшие клинические исследования на людях, где средства с такими комплексами давали плюс к плотности волос по сравнению с плацебо</li>
+            </ul>
+            
+            <p><strong>Но:</strong></p>
+            <ul>
+                <li>выборки маленькие</li>
+                <li>часто исследования проводят сами производители</li>
+                <li>в крупные международные рекомендации по лечению алопеции пептиды пока не вошли</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p><strong>Как я на них смотрю:</strong></p>
+                <ul>
+                    <li>Пептиды — это современный интересный инструмент</li>
+                    <li>Я использую их как усиление к базовой терапии и хорошему уходу</li>
+                    <li>Я не обещаю, что они заблокируют дигидротестостерон как таблетки, и не называю их полной альтернативой миноксидилу</li>
+                    <li>Про синдром отмены у пептидов данных просто нет. Поэтому честно сказать можно только одно: пока это не изучено</li>
+                </ul>
+                <p style="margin-top: 20px;"><em>Если ты видишь в составе Capixyl, Procapil или медные пептиды — это хороший плюс, но не волшебная палочка.</em></p>
+            </div>
+            
+            <h3>3.2. Кофеин</h3>
+            
+            <p>Кофеин в шампунях и сыворотках изучали в нескольких исследованиях:</p>
+            <ul>
+                <li>в части работ шампуни с кофеином уменьшали выпадение и немного улучшали плотность волос по сравнению с нейтральным шампунем</li>
+            </ul>
+            
+            <p><strong>По-честному:</strong></p>
+            <ul>
+                <li>Кофеин можно считать полезным вспомогательным компонентом</li>
+                <li>Он не заменяет ни миноксидил, ни работу с причинами выпадения</li>
+            </ul>
+            
+            <h3>3.3. Экстракт карликовой пальмы</h3>
+            
+            <p>Стандартизованный экстракт saw palmetto рассматривают как мягкий растительный антиандроген:</p>
+            <ul>
+                <li>есть несколько рандомизированных исследований и один систематический обзор, там показано, что у части людей с андрогенетической алопецией на фоне saw palmetto выпадение снижалось и плотность волос немного росла</li>
+            </ul>
+            
+            <p><strong>Моя позиция:</strong></p>
+            <ul>
+                <li>Это вариант мягкой поддержки</li>
+                <li>При приёме внутрь обсуждается только с врачом</li>
+                <li>Наружные формы можно использовать как дополнение, но не как замену лекарствам</li>
+            </ul>
+            
+            <h3>3.4. Розмарин и эфирные масла</h3>
+            
+            <p>По розмариновому маслу есть одно хорошее исследование:</p>
+            <ul>
+                <li>эфирное масло розмарина сравнивали с миноксидилом 2% у людей с андрогенетической алопецией</li>
+                <li>через шесть месяцев обе группы показали улучшение плотности волос</li>
+                <li>зуд кожи головы был даже немного чаще у миноксидила</li>
+            </ul>
+            
+            <p><strong>Это не означает, что розмарин равен миноксидилу.</strong> Это означает, что у розмарина есть потенциал, и его можно использовать как мягкую поддержку, особенно в сыворотках для кожи головы.</p>
+            
+            <p>Про другие эфирные масла (лаванда, мята, тимьян, можжевельник):</p>
+            <ul>
+                <li>пока в основном маленькие работы и эксперименты на животных</li>
+                <li>я отношусь к ним аккуратно, рекомендую только в низких концентрациях и на хорошо переносимой основе</li>
+            </ul>
+            
+            <h3>3.5. Массаж кожи головы</h3>
+            
+            <p>Есть японское исследование:</p>
+            <ul>
+                <li>стандартизированный массаж кожи головы по четыре минуты в день несколько месяцев</li>
+                <li>в результате у участников увеличилась толщина волоса</li>
+            </ul>
+            
+            <p><strong>Плюс:</strong></p>
+            <ul>
+                <li>это снижение стресса</li>
+                <li>улучшение кровотока</li>
+                <li>приятный ежедневный ритуал</li>
+            </ul>
+            
+            <p>Поэтому массаж я очень люблю, но всегда говорю: это не лечение, а поддерживающая история, которая может усилить эффект других средств.</p>
+        </section>
+
+        <section class="content-section" style="--section-index: 4">
+            <h2>4. Что пока не доказано или требует очень аккуратного отношения</h2>
+            
+            <h3>4.1. Шикимовая кислота и настойки бадьяна и хвои</h3>
+            
+            <p><strong>Что есть по факту:</strong></p>
+            <ul>
+                <li>есть хорошее исследование в журнале Scientific Reports, там шикимовая кислота, нанесённая на кожу мышей и добавленная в культуру человеческих фолликулов, стимулировала рост волос и продлевала фазу роста</li>
+            </ul>
+            
+            <p><em>То есть шикимовая кислота правда выглядит перспективно.</em></p>
+            
+            <p><strong>Чего нет:</strong></p>
+            <ul>
+                <li>исследований на людях с андрогенетической алопецией или диффузным выпадением</li>
+                <li>клинических испытаний, где бы её сравнивали с миноксидилом у живых людей</li>
+                <li>данных про то, что будет после отмены таких средств</li>
+            </ul>
+            
+            <div class="warning-box">
+                <p><strong>Поэтому:</strong></p>
+                <ul>
+                    <li>я не называю шикимовую кислоту аналогом миноксидила</li>
+                    <li>я тем более не говорю, что она его превосходит</li>
+                </ul>
+            </div>
+            
+            <p><strong>Домашние настойки бадьяна и хвои:</strong></p>
+            <ul>
+                <li>да, шикимовая кислота в этих растениях есть</li>
+                <li>но концентрация в домашней настойке неизвестна</li>
+                <li>спирт и эфирные компоненты легко дают раздражение и контактный дерматит</li>
+            </ul>
+            
+            <p><strong>Мой вывод:</strong> это эксперимент на себе, а не доказанный способ лечения выпадения.</p>
+            
+            <h3>4.2. Травы как источник пептидов</h3>
+            
+            <p>В косметологии под пептидами понимают короткие синтетические цепочки с точной последовательностью, которые создают специально под рецепторы кожи.</p>
+            
+            <p>Травы дают нам полифенолы, флавоноиды, антиоксиданты, но назвать отвар трав прямым источником тех же пептидов, что в сыворотке с Capixyl, неправильно. Я использую травы как мягкую поддержку для кожи головы, но не как замену пептидных комплексов из лаборатории.</p>
+            
+            <h3>4.3. Жгучие и сильно охлаждающие компоненты</h3>
+            
+            <p>История с перцем, имбирём и сильными согревающими средствами:</p>
+            <ul>
+                <li>в очень высоких концентрациях они могут сжечь кожу и дать воспаление</li>
+                <li>на такой травмированной коже выпадение может усилиться просто из-за дерматита</li>
+            </ul>
+            
+            <p>Есть и работы, где капсаицин в небольших дозах в сочетании с изофлавонами наоборот улучшал рост волос, но это тонкая игра с дозами и индивидуальной реакцией.</p>
+            
+            <p><strong>Моя честная позиция:</strong></p>
+            <ul>
+                <li>без контроля концентрации и состояния кожи головы я такие эксперименты не рекомендую</li>
+                <li>если кожа чувствительная или есть себорейный дерматит, от агрессивного разогрева лучше отказаться</li>
+            </ul>
+            
+            <h3>4.4. Витамины и БАДы без дефицитов</h3>
+            
+            <p>По результатам обзоров:</p>
+            <ul>
+                <li>если дефицит железа, витамина D, В12, фолата, цинка есть — его коррекция помогает при выпадении</li>
+                <li>если дефицита нет — профилактический приём комплексов «для волос» не показал убедимого эффекта именно на рост волос</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p><strong>Поэтому:</strong></p>
+                <ul>
+                    <li>сначала анализы, потом добавки</li>
+                    <li>а не наоборот</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section" style="--section-index: 5">
+            <h2>5. Мини-чек-лист для тебя</h2>
+            
+            <p>Чтобы это всё собрать в рабочую систему:</p>
+            
+            <div class="checklist">
+                <div class="checklist-item">
+                    <h3>Шаг один: разобраться с причиной</h3>
+                    <ul>
+                        <li>врач (дерматолог или трихолог)</li>
+                        <li>по показаниям анализы на ферритин, витамин D, В12, щитовидку и другое</li>
+                    </ul>
+                </div>
+                
+                <div class="checklist-item">
+                    <h3>Шаг два: обсудить с врачом базовое лечение</h3>
+                    <p>При андрогенетической алопеции:</p>
+                    <ul>
+                        <li>наружный миноксидил</li>
+                        <li>лекарства внутрь только по назначению врача</li>
+                    </ul>
+                </div>
+                
+                <div class="checklist-item">
+                    <h3>Шаг три: добавлять поддерживающие средства</h3>
+                    <ul>
+                        <li>пептиды в сыворотках (Capixyl, Procapil, медные пептиды) как усиление, а не замена</li>
+                        <li>кофеин в шампунях и тониках</li>
+                        <li>экстракт карликовой пальмы (по согласованию с врачом)</li>
+                        <li>средства с розмарином и мягкими эфирными маслами</li>
+                        <li>регулярный аккуратный массаж кожи головы</li>
+                    </ul>
+                </div>
+                
+                <div class="checklist-item">
+                    <h3>Шаг четыре: не делать ставку на сомнительные методы</h3>
+                    <ul>
+                        <li>домашние настойки на спирту</li>
+                        <li>агрессивные разогревающие смеси</li>
+                        <li>волшебные витамины без анализа крови</li>
+                        <li>обещания, что одна баночка остановит выпадение в любой ситуации</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight-box" style="margin-top: 40px;">
+                <p style="font-size: 1.1rem; margin-bottom: 0;"><strong>Этот гид не вместо врача</strong>, но он поможет тебе ориентироваться в составах и обещаниях производителей, понять, где действительно есть исследования, а где только красивая маркетинговая сказка.</p>
+            </div>
+        </section>
+
+        <div class="sources">
+            <h2>Источники</h2>
+            <ol>
+                <li><a href="https://www.sciencedirect.com/science/article/pii/S019096220200124X" target="_blank" rel="noopener">A randomized clinical trial of 5% topical minoxidil versus 2% topical (ScienceDirect)</a></li>
+                <li><a href="https://www.scienceopen.com/document?vid=2c09a254-050c-4510-bbd6-817945f2eb6b" target="_blank" rel="noopener">Rosemary oil vs minoxidil 2% for the treatment of androgenetic alopecia (ScienceOpen)</a></li>
+                <li><a href="https://link.springer.com/article/10.1007/s00403-025-04216-9" target="_blank" rel="noopener">Randomized controlled trial on the efficacy and safety (SpringerLink)</a></li>
+                <li><a href="https://www.tandfonline.com/doi/pdf/10.2147/CCID.S470989" target="_blank" rel="noopener">An Overview of Commonly Used Natural Alternatives for the Treatment (Tandfonline)</a></li>
+                <li><a href="https://escholarship.org/content/qt87w9473t/qt87w9473t.pdf" target="_blank" rel="noopener">Natural Hair Supplement: Friend or Foe? Saw Palmetto, a Systematic (eScholarship)</a></li>
+                <li><a href="https://europepmc.org/abstract/med/25842469" target="_blank" rel="noopener">Rosemary oil vs minoxidil 2% for the treatment of androgenetic alopecia (Europe PMC)</a></li>
+                <li><a href="https://europepmc.org/article/PMC/4740347" target="_blank" rel="noopener">Standardized Scalp Massage Results in Increased Hair Thickness (Europe PMC)</a></li>
+                <li><a href="https://www.nature.com/articles/s41598-019-53612-5.pdf" target="_blank" rel="noopener">Shikimic acid, a mannose bioisostere, promotes hair growth (Nature)</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Научный гид по средствам от выпадения волос</p>
+    </footer>
+</body>
+</html>
