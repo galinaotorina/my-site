@@ -1,1 +1,1452 @@
-test
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>День 2. Где ты каждый день теряешь свою энергию</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --veranda-blue: #4BA8A3;
+            --sky-cloud: #8FB5B7;
+            --lychee: #EDECDB;
+            --melon: #E5A9A9;
+            --cupid-pink: #E4587A;
+            --text-dark: #3D4A4A;
+            --text-light: #5A6B6B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(180deg, #F8F7F0 0%, var(--lychee) 50%, #F5F0E8 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, rgba(75, 168, 163, 0.18) 0%, rgba(228, 88, 122, 0.18) 100%);
+            border-radius: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(229, 169, 169, 0.25) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--veranda-blue) 0%, var(--cupid-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .header h1::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--veranda-blue), var(--cupid-pink));
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .header p {
+            color: var(--text-light);
+            font-size: 1rem;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+
+        .intro-text {
+            background: #fff;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--cupid-pink);
+            box-shadow: 0 5px 20px rgba(75, 168, 163, 0.1);
+        }
+
+        .intro-text p {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .intro-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .gift-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(75, 168, 163, 0.15) 0%, rgba(228, 88, 122, 0.15) 100%);
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--cupid-pink);
+            margin-bottom: 15px;
+        }
+
+        .progress-container {
+            background: rgba(143, 181, 183, 0.3);
+            border-radius: 20px;
+            height: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--veranda-blue), var(--melon), var(--cupid-pink));
+            border-radius: 20px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-bottom: 12px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .question-card {
+            background: #FFFFFF;
+            border-radius: 25px;
+            padding: 35px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(75, 168, 163, 0.1), 0 2px 10px rgba(0,0,0,0.03);
+            border: 1px solid rgba(143, 181, 183, 0.2);
+            display: none;
+        }
+
+        .question-card.active {
+            display: block;
+            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .block-label {
+            display: inline-block;
+            padding: 6px 16px;
+            background: linear-gradient(135deg, rgba(75, 168, 163, 0.15) 0%, rgba(228, 88, 122, 0.15) 100%);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--veranda-blue);
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .question-number {
+            font-size: 0.85rem;
+            color: var(--sky-cloud);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .question-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 28px;
+            font-weight: 500;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 14px 20px;
+            background: linear-gradient(135deg, rgba(237, 236, 219, 0.5) 0%, rgba(255, 255, 255, 0.8) 100%);
+            border: 2px solid rgba(143, 181, 183, 0.3);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .option:hover {
+            background: linear-gradient(135deg, rgba(75, 168, 163, 0.12) 0%, rgba(228, 88, 122, 0.12) 100%);
+            border-color: var(--veranda-blue);
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(75, 168, 163, 0.18);
+        }
+
+        .option.selected {
+            background: linear-gradient(135deg, rgba(75, 168, 163, 0.2) 0%, rgba(228, 88, 122, 0.18) 100%);
+            border-color: var(--cupid-pink);
+            box-shadow: 0 5px 25px rgba(228, 88, 122, 0.25);
+        }
+
+        .option-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(143, 181, 183, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .option.selected .option-number {
+            background: linear-gradient(135deg, var(--veranda-blue) 0%, var(--cupid-pink) 100%);
+            color: #fff;
+        }
+
+        .option-text {
+            font-weight: 400;
+            color: var(--text-dark);
+            font-size: 0.93rem;
+            line-height: 1.4;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 16px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-prev {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--sky-cloud);
+        }
+
+        .btn-prev:hover {
+            background: rgba(143, 181, 183, 0.15);
+            border-color: var(--veranda-blue);
+            color: var(--veranda-blue);
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, var(--veranda-blue) 0%, var(--cupid-pink) 100%);
+            color: #fff;
+            flex-grow: 1;
+            box-shadow: 0 8px 25px rgba(228, 88, 122, 0.35);
+        }
+
+        .btn-next:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(228, 88, 122, 0.45);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Mid-quiz info */
+        .mid-info {
+            background: linear-gradient(135deg, rgba(75, 168, 163, 0.1) 0%, rgba(228, 88, 122, 0.1) 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin: -10px 0 20px;
+            border-left: 4px solid var(--cupid-pink);
+        }
+
+        .mid-info p {
+            font-size: 0.92rem;
+            margin-bottom: 10px;
+        }
+
+        .mid-info p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Intermediate screen */
+        .intermediate-screen {
+            display: none;
+        }
+
+        .intermediate-screen.active {
+            display: block;
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .intermediate-card {
+            background: #FFFFFF;
+            border-radius: 30px;
+            padding: 45px 40px;
+            box-shadow: 0 15px 50px rgba(75, 168, 163, 0.15), 0 5px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(143, 181, 183, 0.2);
+            text-align: center;
+        }
+
+        .intermediate-icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+        }
+
+        .intermediate-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--cupid-pink);
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .intermediate-card h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--veranda-blue), var(--cupid-pink));
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .intermediate-card p {
+            color: var(--text-dark);
+            margin-bottom: 18px;
+            font-size: 1.02rem;
+            line-height: 1.7;
+        }
+
+        .intermediate-card .highlight-box {
+            background: linear-gradient(135deg, rgba(75, 168, 163, 0.12) 0%, rgba(228, 88, 122, 0.12) 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid;
+            border-image: linear-gradient(180deg, var(--veranda-blue), var(--cupid-pink)) 1;
+            text-align: left;
+        }
+
+        .intermediate-card .highlight-box p {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .intermediate-card .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .intermediate-card .highlight-box strong {
+            color: var(--cupid-pink);
+        }
+
+        .yesterday-question {
+            background: rgba(75, 168, 163, 0.08);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .yesterday-question h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--veranda-blue);
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .yesterday-question p {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .yesterday-question .soft-note {
+            font-style: italic;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .btn-show-results {
+            background: linear-gradient(135deg, var(--veranda-blue) 0%, var(--cupid-pink) 100%);
+            color: #fff;
+            padding: 18px 50px;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            box-shadow: 0 10px 30px rgba(228, 88, 122, 0.4);
+        }
+
+        .btn-show-results:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(228, 88, 122, 0.5);
+        }
+
+        /* Results */
+        .results {
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .result-card {
+            background: #FFFFFF;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(75, 168, 163, 0.15), 0 5px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(143, 181, 183, 0.2);
+        }
+
+        .result-score {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .score-circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--veranda-blue) 0%, var(--melon) 50%, var(--cupid-pink) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            box-shadow: 0 15px 40px rgba(228, 88, 122, 0.35);
+        }
+
+        .result-type {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--cupid-pink);
+            font-weight: 600;
+        }
+
+        .result-type::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--veranda-blue), var(--cupid-pink));
+            margin: 12px auto 0;
+            border-radius: 2px;
+        }
+
+        .result-subtitle {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-top: 15px;
+        }
+
+        .result-section {
+            margin-top: 35px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(143, 181, 183, 0.3);
+        }
+
+        .result-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--veranda-blue);
+            margin-bottom: 18px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .result-section p {
+            color: var(--text-dark);
+            margin-bottom: 14px;
+            font-weight: 400;
+        }
+
+        .result-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .result-section li {
+            padding: 10px 0;
+            padding-left: 28px;
+            position: relative;
+            color: var(--text-dark);
+        }
+
+        .result-section li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            color: var(--cupid-pink);
+        }
+
+        .step-block {
+            background: linear-gradient(135deg, rgba(75, 168, 163, 0.08) 0%, rgba(228, 88, 122, 0.08) 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 20px;
+            border-left: 4px solid;
+            border-image: linear-gradient(180deg, var(--veranda-blue), var(--cupid-pink)) 1;
+        }
+
+        .step-block h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--cupid-pink);
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .step-block p {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .step-block ul {
+            margin-top: 10px;
+            margin-left: 5px;
+        }
+
+        .step-block li {
+            padding: 6px 0;
+            font-size: 0.95rem;
+        }
+
+        .step-block .quote-box {
+            background: rgba(255,255,255,0.7);
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin: 12px 0;
+            font-style: italic;
+            color: var(--text-dark);
+        }
+
+        /* Hair section */
+        .hair-section {
+            margin-top: 40px;
+            padding: 35px;
+            background: linear-gradient(135deg, rgba(75, 168, 163, 0.1) 0%, rgba(228, 88, 122, 0.1) 100%);
+            border-radius: 25px;
+            border: 2px solid rgba(228, 88, 122, 0.2);
+        }
+
+        .hair-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--cupid-pink);
+            font-size: 1.2rem;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hair-section p {
+            font-size: 0.95rem;
+            margin-bottom: 14px;
+        }
+
+        .hair-section .ingredients-list {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .hair-section .ingredients-list p {
+            margin-bottom: 10px;
+        }
+
+        .gift-box {
+            background: linear-gradient(135deg, var(--veranda-blue) 0%, var(--cupid-pink) 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 25px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .gift-box h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+
+        .gift-box p {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .gift-box .keyword {
+            display: inline-block;
+            background: #fff;
+            color: var(--cupid-pink);
+            padding: 8px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Share section */
+        .share-section {
+            margin-top: 35px;
+            padding: 30px;
+            background: rgba(75, 168, 163, 0.08);
+            border-radius: 20px;
+            text-align: center;
+            border: 2px dashed var(--melon);
+        }
+
+        .share-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--veranda-blue);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .share-section p {
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .share-section .screenshot-tip {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            padding: 12px 25px;
+            border-radius: 50px;
+            margin: 15px 0;
+            font-weight: 600;
+            color: var(--veranda-blue);
+            box-shadow: 0 5px 20px rgba(75, 168, 163, 0.15);
+        }
+
+        .share-section .screenshot-tip span {
+            font-size: 1.3rem;
+        }
+
+        /* Decorative elements */
+        .decoration {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .decoration-1 {
+            top: 10%;
+            left: 5%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--melon) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+        }
+
+        .decoration-2 {
+            bottom: 20%;
+            right: 5%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--veranda-blue) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(50px);
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.4rem;
+            }
+            
+            .question-text {
+                font-size: 1.05rem;
+            }
+
+            .result-card {
+                padding: 25px;
+            }
+
+            .option {
+                padding: 12px 16px;
+            }
+
+            .option-text {
+                font-size: 0.88rem;
+            }
+
+            .intermediate-card {
+                padding: 30px 25px;
+            }
+
+            .hair-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration decoration-1"></div>
+    <div class="decoration decoration-2"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🔋 День 2. Где ты каждый день теряешь свою энергию</h1>
+            <p>...и почему это видно даже по волосам</p>
+        </div>
+
+        <div class="quiz-container">
+            <div class="intro-text">
+                <div class="gift-badge">🎁 В конце тебя ждёт подарок</div>
+                <p>Этот тест поможет увидеть, <strong>где ты каждый день сливаешь энергию</strong> — через сон, еду, мысли, людей, дела и телефон.</p>
+                <p>Без энергии любые изменения в жизни превращаются в пытку. А хронический стресс и недосып могут даже усиливать выпадение волос.</p>
+                <p>Отвечай честно — это не экзамен, а диагностика точки А.</p>
+            </div>
+
+            <div class="progress-text">Вопрос <span id="currentQ">1</span> из 16</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <div id="questionsContainer"></div>
+
+            <div class="navigation">
+                <button class="btn btn-prev" id="prevBtn" onclick="prevQuestion()">← Назад</button>
+                <button class="btn btn-next" id="nextBtn" onclick="nextQuestion()" disabled>Далее →</button>
+            </div>
+        </div>
+
+        <!-- Intermediate screen before results -->
+        <div class="intermediate-screen" id="intermediateScreen">
+            <div class="intermediate-card">
+                <div class="intermediate-icon">✨</div>
+                <h2>Ты прошла тест — молодец!</h2>
+                
+                <div class="yesterday-question">
+                    <h4>💭 Кстати, про вчерашний день...</h4>
+                    <p>Вчера в первом тесте были конкретные шаги. <strong>Удалось что-то сделать?</strong></p>
+                    <p>Если да — напиши мне, что именно. Мне правда интересно!</p>
+                    <p class="soft-note">Если нет — ничего страшного. Значит, ещё не время. Иногда нужно просто дать себе осознать.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>📸 Сделай скриншот результата</strong> — пригодится в конце адвент-календаря</p>
+                    <p><strong>✍️ Напиши мне</strong> — поделись своим типом и что чувствуешь</p>
+                    <p><strong>🎁 В конце теста — подарок</strong> про волосы и составы средств</p>
+                </div>
+
+                <button class="btn btn-show-results" onclick="showResults()">Посмотреть мой результат ✨</button>
+            </div>
+        </div>
+
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                block: "Тело",
+                text: "Как ты обычно спишь?",
+                options: [
+                    "Часто засыпаю очень поздно, ворочаюсь, просыпаюсь разбитой, сон вообще не в приоритете",
+                    "Засыпаю как попало, сон беспокойный, часто просыпаюсь среди ночи",
+                    "Периодами сплю нормально, периодами плохо, стабильности нет",
+                    "В целом сплю достаточно, бывают редкие сбои, но я их замечаю",
+                    "Обычно ложусь и встаю примерно в одно время, чаще всего высыпаюсь и чувствую себя живой"
+                ]
+            },
+            {
+                block: "Тело",
+                text: "Как у тебя с едой в обычный день?",
+                options: [
+                    "Долго хожу голодной, потом накидываюсь и переедаю, ем на бегу, про качество не думаю",
+                    "Часто ем чем придётся, без режима, могу заменять еду сладким/кофе",
+                    "То слежу за питанием, то полностью забиваю — качели",
+                    "В целом ем более-менее регулярно, иногда срываюсь, но возвращаюсь к режиму",
+                    "У меня плюс-минус стабильное питание: я помню про воду, про белок и стараюсь не доводить себя до голодного зверя"
+                ]
+            },
+            {
+                block: "Тело",
+                text: "Как ты отдыхаешь в течение дня?",
+                options: [
+                    "Вообще не отдыхаю: пашу до вечера, а потом просто падаю",
+                    "Отдых — это пролистать телефон/сериалы до отключки, и после не легче",
+                    "Иногда делаю паузы, но чаще они про прокрастинацию, а не про восстановление",
+                    "В дне бывают короткие осознанные паузы (подышать, пройтись, попить воду), и я чувствую разницу",
+                    "Я заранее закладываю в день мини-паузы и формы отдыха, которые меня реально восстанавливают"
+                ]
+            },
+            {
+                block: "Тело",
+                text: "Как ты чувствуешь себя по утрам?",
+                options: [
+                    "С утра уже ощущение, что день меня просто дожимает",
+                    "Просыпаюсь с тяжестью и сопротивлением к любым задачам",
+                    "То нормально, то как будто по мне проехался трактор — как повезёт",
+                    "Большинство утр — в состоянии «не идеально, но жить можно»",
+                    "Часто просыпаюсь с ощущением, что день в моих руках и я что-то могу для себя сделать"
+                ]
+            },
+            {
+                block: "Голова",
+                text: "Как ты разговариваешь сама с собой в течение дня?",
+                options: [
+                    "Постоянно ругаю себя, обесцениваю и «добиваю» в голове",
+                    "Чаще слышу внутри критику, чем поддержку, тяжело себе что-то простить",
+                    "Иногда поддерживаю себя, иногда жёстко прижимаю",
+                    "В целом умею говорить с собой по-человечески, даже если не всё получается",
+                    "Внутренний голос чаще на моей стороне: я могу и честно признать ошибку, и себя поддержать"
+                ]
+            },
+            {
+                block: "Голова",
+                text: "Что чаще всего происходит в твоей голове?",
+                options: [
+                    "Постоянный поток тревожных мыслей и «а вдруг всё пойдёт плохо»",
+                    "Много жую прошлое: кто что сказал, что я не так сделала",
+                    "То застреваю в мыслях, то могу переключиться, как качели",
+                    "Иногда ухожу в «мысленную жвачку», но умею себя останавливать и переключаться",
+                    "Замечаю тяжёлые мысли и знаю, как переключить внимание на действия или благодарность"
+                ]
+            },
+            {
+                block: "Голова",
+                text: "Как часто в твоём дне есть радость или интерес?",
+                options: [
+                    "Почти никогда, день как сплошной вынос мозга",
+                    "Редко: отдельные короткие моменты, и то как будто случайно",
+                    "Примерно пополам: есть и тяжёлое, и что-то приятное",
+                    "Довольно часто есть моменты удовольствия и интереса, я их замечаю",
+                    "Практически каждый день я сознательно создаю себе хотя бы один маленький момент радости"
+                ]
+            },
+            {
+                block: "Голова",
+                text: "Как ты относишься к сравнению себя с другими?",
+                options: [
+                    "Постоянно сравниваю себя с другими и в итоге чувствую себя хуже",
+                    "Часто смотрю на чужую жизнь и обесцениваю свою",
+                    "Иногда сравниваю и ковыряю себя, иногда удаётся отстоять свою ценность",
+                    "В целом помню, что у всех свой путь, и стараюсь не уничтожать себя сравнением",
+                    "Если сравниваю, то скорее вдохновляюсь и беру идеи, а не бью себя «я хуже всех»"
+                ]
+            },
+            {
+                block: "Люди",
+                text: "Как ты чувствуешь себя после общения с людьми в целом?",
+                options: [
+                    "После большинства разговоров хочется лечь и исчезнуть",
+                    "Чаще выхожу из общения уставшей и опустошённой, чем наполненной",
+                    "С разными людьми по-разному, всё вперемешку",
+                    "В целом есть те, кто забирает силы, но и те, после кого мне легче и спокойнее",
+                    "Я осознанно больше общаюсь с теми, после кого мне лучше, а не хуже"
+                ]
+            },
+            {
+                block: "Люди",
+                text: "Как у тебя получается говорить «нет»?",
+                options: [
+                    "Почти всегда соглашаюсь, даже если внутри всё орёт «не хочу»",
+                    "Мне очень сложно отказывать, чаще делаю «через не могу», потом злюсь на себя",
+                    "Иногда могу отказать, иногда сдаюсь из чувства вины",
+                    "В целом могу сказать «нет», если понимаю, что мне это вредно",
+                    "Я достаточно чётко чувствую свои границы и могу спокойно отказать"
+                ]
+            },
+            {
+                block: "Люди",
+                text: "Сколько в твоём окружении людей, рядом с которыми тебе тяжело?",
+                options: [
+                    "Очень много, ощущение, что вокруг сплошной минус и драма",
+                    "Достаточно: регулярно общаюсь с теми, после кого тяжело",
+                    "Есть такие люди, но я пытаюсь ограничивать контакт",
+                    "В основном вокруг нейтральные или спокойные люди, токсичных немного",
+                    "Я сознательно сокращаю контакты с теми, кто меня выжимает"
+                ]
+            },
+            {
+                block: "Люди",
+                text: "Как тебе живётся с фразой «я никому ничего не должна, кроме себя»?",
+                options: [
+                    "Я как будто всем должна и вечно виновата",
+                    "Чувствую ответственность за всех и всё, про себя вспоминаю в последнюю очередь",
+                    "Иногда помню про себя, но часто всё равно ставлю других выше",
+                    "Стараюсь учитывать и себя, и других, не стирая себя в ноль",
+                    "Признаю свои реальные обязанности, но не жертвую собой постоянно — у меня тоже есть место"
+                ]
+            },
+            {
+                block: "Дела",
+                text: "Что у тебя с делами и задачами?",
+                options: [
+                    "Постоянное ощущение завала и хаоса, ничего не успеваю",
+                    "Список дел бесконечный, даже когда что-то делаю, всё равно чувство «я не справляюсь»",
+                    "Иногда удаётся навести порядок, но он быстро разваливается",
+                    "В целом понимаю, что запланировано, и держу более-менее под контролем",
+                    "У меня есть понятная система (список, планер, заметки), и я вижу, что успеваю главное"
+                ]
+            },
+            {
+                block: "Дела",
+                text: "Как ты делаешь дела?",
+                options: [
+                    "Мечусь: хватаюсь за всё подряд, не заканчивая",
+                    "Часто перепрыгиваю с одного на другое, к вечеру как выжатая тряпка",
+                    "Периодами ухожу в многозадачность, потом собираю себя обратно",
+                    "Стараюсь делать задачи блоками и не разбрасываться",
+                    "Обычно делаю одно дело за раз и довожу до логичной точки, так мне гораздо легче"
+                ]
+            },
+            {
+                block: "Дела",
+                text: "Сколько времени и сил забирает телефон и соцсети?",
+                options: [
+                    "Очень много: могу зависнуть на часы, потом чувствую себя выжатой и раздражённой",
+                    "Часто ухожу в телефон, когда тяжело, потом злюсь на себя, что опять «утонула»",
+                    "Бывают залёты, но иногда удаётся себя ограничить",
+                    "В целом держу это под контролем, бывают редкие срывы",
+                    "Я достаточно осознанно использую телефон и соцсети, они почти не съедают мои силы"
+                ]
+            },
+            {
+                block: "Дела",
+                text: "Насколько твой день забит чужими запросами и обязанностями?",
+                options: [
+                    "Такое ощущение, что я весь день живу чужой жизнью",
+                    "Большая часть дня уходит на чужие задачи, про себя вспоминаю в самом конце",
+                    "Примерно пополам: и чужое, и своё",
+                    "Успеваю и для других, и для себя — не идеально, но баланс есть",
+                    "В моём дне есть место для других людей, но я осознанно оставляю время и силы на свои задачи"
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = new Array(16).fill(null);
+        let totalScore = 0;
+
+        function init() {
+            const container = document.getElementById('questionsContainer');
+            
+            questions.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = `question-card ${index === 0 ? 'active' : ''}`;
+                card.id = `question-${index}`;
+
+                // Add mid-quiz info after question 8
+                let midInfo = '';
+                if (index === 8) {
+                    midInfo = `
+                        <div class="mid-info">
+                            <p>💇‍♀️ <strong>Важно:</strong> если ты постоянно не высыпаешься, живёшь в стрессе и ешь как попало — это отражается не только на настроении.</p>
+                            <p>Хронический стресс и недосып могут усиливать выпадение волос. Работая со своей энергией, ты одновременно работаешь и за здоровье волос.</p>
+                        </div>
+                    `;
+                }
+                
+                card.innerHTML = `
+                    ${midInfo}
+                    <div class="block-label">${q.block}</div>
+                    <div class="question-number">Вопрос ${index + 1} из 16</div>
+                    <div class="question-text">${q.text}</div>
+                    <div class="options">
+                        ${q.options.map((opt, i) => `
+                            <div class="option" data-value="${i + 1}" onclick="selectOption(${index}, ${i + 1}, this)">
+                                <span class="option-number">${i + 1}</span>
+                                <span class="option-text">${opt}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+
+            updateNavigation();
+        }
+
+        function selectOption(questionIndex, value, element) {
+            answers[questionIndex] = value;
+            
+            const card = document.getElementById(`question-${questionIndex}`);
+            card.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            updateNavigation();
+
+            if (currentQuestion < 15) {
+                setTimeout(() => nextQuestion(), 350);
+            }
+        }
+
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            
+            if (currentQuestion === 15) {
+                nextBtn.textContent = 'Узнать результат ✨';
+            } else {
+                nextBtn.textContent = 'Далее →';
+            }
+            
+            nextBtn.disabled = answers[currentQuestion] === null;
+            
+            document.getElementById('currentQ').textContent = currentQuestion + 1;
+            document.getElementById('progressBar').style.width = ((currentQuestion + 1) / 16 * 100) + '%';
+        }
+
+        function nextQuestion() {
+            if (answers[currentQuestion] === null) return;
+            
+            if (currentQuestion < 15) {
+                document.getElementById(`question-${currentQuestion}`).classList.remove('active');
+                currentQuestion++;
+                document.getElementById(`question-${currentQuestion}`).classList.add('active');
+                updateNavigation();
+            } else {
+                showIntermediateScreen();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                document.getElementById(`question-${currentQuestion}`).classList.remove('active');
+                currentQuestion--;
+                document.getElementById(`question-${currentQuestion}`).classList.add('active');
+                updateNavigation();
+            }
+        }
+
+        function showIntermediateScreen() {
+            document.querySelector('.quiz-container').style.display = 'none';
+            document.getElementById('intermediateScreen').classList.add('active');
+            totalScore = answers.reduce((sum, val) => sum + val, 0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showResults() {
+            document.getElementById('intermediateScreen').classList.remove('active');
+            
+            let resultHTML = '';
+
+            if (totalScore <= 28) {
+                resultHTML = getResult1(totalScore);
+            } else if (totalScore <= 40) {
+                resultHTML = getResult2(totalScore);
+            } else if (totalScore <= 52) {
+                resultHTML = getResult3(totalScore);
+            } else if (totalScore <= 64) {
+                resultHTML = getResult4(totalScore);
+            } else if (totalScore <= 72) {
+                resultHTML = getResult5(totalScore);
+            } else {
+                resultHTML = getResult6(totalScore);
+            }
+
+            document.getElementById('results').innerHTML = resultHTML;
+            document.getElementById('results').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function getHairSection() {
+            return `
+                <div class="hair-section">
+                    <h3>💇‍♀️ Про волосы</h3>
+                    <p>Когда тело живёт в хроническом стрессе, недосыпе и дефицитах, организм начинает экономить: не на самых важных органах, а на «красоте» — коже, ногтях, волосах.</p>
+                    <p>При длительном стрессе часть волос может переходить в фазу покоя и выпадения — это называется <strong>телогеновое выпадение</strong>.</p>
+                    <p>Поэтому работа с энергией, сном, питанием — это не только про «я стала бодрее», но и про то, как выглядят твои волосы.</p>
+                    
+                    <div class="gift-box">
+                        <h4>🎁 Обещанный подарок</h4>
+                        <p>Что в составе средств реально будет останавливать выпадение, а что — просто красивые слова на упаковке.</p>
+                        <p>Напиши мне в личку:</p>
+                        <span class="keyword">Галина хочу подарок</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getShareSection() {
+            return `
+                <div class="share-section">
+                    <h3>📸 Сохрани этот момент!</h3>
+                    
+                    <div class="screenshot-tip">
+                        <span>📱</span>
+                        Сделай скриншот прямо сейчас
+                    </div>
+                    
+                    <p><strong>Напиши мне — поделись:</strong></p>
+                    <p>• Какой у тебя тип?<br>
+                    • Что чувствуешь после теста?<br>
+                    • Удалось ли сделать что-то из вчерашних шагов?</p>
+                    
+                    <p style="margin-top: 15px; font-size: 0.95rem; color: var(--text-dark);">
+                        В конце адвент-календаря будет интересно сравнить, как ты изменилась 💗
+                    </p>
+                </div>
+            `;
+        }
+
+        function getResult1(total) {
+            return `
+                <div class="result-card">
+                    <div class="result-score">
+                        <div class="score-circle">${total}</div>
+                        <div class="result-type">🍋 «Выжатый лимон»</div>
+                        <div class="result-subtitle">16–28 баллов</div>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>Про тебя:</h3>
+                        <p>Ты живёшь на пределе. Энергия уходит в недосып, хаотичную еду, постоянное напряжение и чужие запросы.</p>
+                        <p>Тело устало, голова перегружена, эмоции либо заморожены, либо льются через край.</p>
+                        <p><strong>Сейчас задача — не развиваться, а сначала выключить режим постоянного выживания.</strong></p>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>✦ Три шага для тебя:</h3>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 1: Выбери одну базовую опору</h4>
+                        <p>Из четырёх тем — сон, еда, отдых, телефон — выбери ОДНУ, которая у тебя хуже всего.</p>
+                        <div class="quote-box">«Сейчас моя главная задача — подтянуть вот это хотя бы на один уровень. Больше с себя не требую».</div>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 2: Мини-правило для тела на 7 дней</h4>
+                        <p>Выбери что-то одно:</p>
+                        <ul>
+                            <li>Стакан воды сразу после пробуждения</li>
+                            <li>Один приём пищи в день — без телефона и спешки</li>
+                            <li>Лечь спать на 20–30 минут раньше обычного</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 3: Стоп-сигнал «я себя выжимаю»</h4>
+                        <p>Как только ловишь мысль «я больше не могу»:</p>
+                        <ul>
+                            <li>Остановись на 30 секунд</li>
+                            <li>Сделай 3 глубоких вдоха</li>
+                            <li>Спроси: «Что я могу сделать для себя на 1 минуту, чтобы стало чуть легче?»</li>
+                        </ul>
+                    </div>
+
+                    ${getHairSection()}
+                    ${getShareSection()}
+                </div>
+            `;
+        }
+
+        function getResult2(total) {
+            return `
+                <div class="result-card">
+                    <div class="result-score">
+                        <div class="score-circle">${total}</div>
+                        <div class="result-type">😴 «Хронически уставшая»</div>
+                        <div class="result-subtitle">29–40 баллов</div>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>Про тебя:</h3>
+                        <p>Ты много делаешь, многое тащишь. Иногда удаётся восстановиться, но ненадолго.</p>
+                        <p>Энергия утекает через базовые вещи: сон, еда, телефон, чужие запросы.</p>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>✦ Три шага для тебя:</h3>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 1: Найди главную дыру</h4>
+                        <p>Посмотри на вопросы и вспомни, где у тебя были самые низкие баллы (1–2).</p>
+                        <p>Это твой главный «дырявый» пункт: сон, питание, люди, телефон...</p>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 2: Сократи нагрузку на 10%</h4>
+                        <div class="quote-box">«Что я могу убрать/уменьшить на 10%?»</div>
+                        <ul>
+                            <li>На 20 минут меньше сидеть в телефоне вечером</li>
+                            <li>Отказаться от одной встречи/дела, которое высасывает силы</li>
+                            <li>В один день не готовить сложно, а сделать что-то попроще</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 3: Добавь один короткий источник энергии (5 минут в день)</h4>
+                        <ul>
+                            <li>5 минут прогулки без телефона</li>
+                            <li>5 минут растяжки</li>
+                            <li>5 минут просто лежать и дышать</li>
+                            <li>5 минут с чаем и тишиной</li>
+                        </ul>
+                        <p>Один формат выбери и сделай своим ритуалом на ближайшие 7 дней.</p>
+                    </div>
+
+                    ${getHairSection()}
+                    ${getShareSection()}
+                </div>
+            `;
+        }
+
+        function getResult3(total) {
+            return `
+                <div class="result-card">
+                    <div class="result-score">
+                        <div class="score-circle">${total}</div>
+                        <div class="result-type">⚖️ «Живу, но часто на пределе»</div>
+                        <div class="result-subtitle">41–52 балла</div>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>Про тебя:</h3>
+                        <p>Ты не в полном нуле, у тебя уже есть ресурсы и приятные моменты.</p>
+                        <p>Но баланс легко срывается: то переработка, то «поесть на бегу», то снова люди, после которых ты падаешь.</p>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>✦ Три шага для тебя:</h3>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 1: Сделай карту своей энергии</h4>
+                        <p>На листе два столбца:</p>
+                        <ul>
+                            <li>«Что даёт мне энергию»</li>
+                            <li>«Что её забирает»</li>
+                        </ul>
+                        <p>В каждый столбец внеси минимум по 5 пунктов.</p>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 2: Выбери «плюс недели» и «минус недели»</h4>
+                        <ul>
+                            <li>Один пункт из «даёт» — усилить (делать чаще/осознаннее)</li>
+                            <li>Один пункт из «забирает» — чуть уменьшить или ограничить</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 3: Недельный чек-ин</h4>
+                        <p>Раз в неделю отвечай себе:</p>
+                        <ul>
+                            <li>Что помогло мне чувствовать себя живее?</li>
+                            <li>Что снова выжало?</li>
+                            <li>Что я хочу повторить / не повторять на следующей неделе?</li>
+                        </ul>
+                    </div>
+
+                    ${getHairSection()}
+                    ${getShareSection()}
+                </div>
+            `;
+        }
+
+        function getResult4(total) {
+            return `
+                <div class="result-card">
+                    <div class="result-score">
+                        <div class="score-circle">${total}</div>
+                        <div class="result-type">💪 «В целом ресурсная, но дырки есть»</div>
+                        <div class="result-subtitle">53–64 балла</div>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>Про тебя:</h3>
+                        <p>В твоей жизни уже есть опоры, радость и относительно здоровый ритм.</p>
+                        <p>Но иногда ты всё равно соглашаешься на общение/дела, после которых тебя выбивает.</p>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>✦ Два шага для тебя:</h3>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 1: Пересобери окружение на +10%</h4>
+                        <p>Вспомни людей, после которых тебе стабильно тяжело.</p>
+                        <div class="quote-box">«Как я могу уменьшить контакт хотя бы на 10–20%?»</div>
+                        <ul>
+                            <li>Чуть реже отвечать</li>
+                            <li>Сокращать время разговоров</li>
+                            <li>Переводить часть общения в переписку</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 2: Осознанный отдых вместо случайного</h4>
+                        <p>Выбери один вид отдыха, который реально даёт ресурс:</p>
+                        <ul>
+                            <li>Тишина</li>
+                            <li>Вода (ванна/душ/бассейн)</li>
+                            <li>Природа</li>
+                            <li>Творчество</li>
+                        </ul>
+                        <p>Запланируй это в календарь <strong>как встречу с собой</strong>, а не «если останется время».</p>
+                    </div>
+
+                    ${getHairSection()}
+                    ${getShareSection()}
+                </div>
+            `;
+        }
+
+        function getResult5(total) {
+            return `
+                <div class="result-card">
+                    <div class="result-score">
+                        <div class="score-circle">${total}</div>
+                        <div class="result-type">✨ «Собираю энергию осознанно»</div>
+                        <div class="result-subtitle">65–72 балла</div>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>Про тебя:</h3>
+                        <p>Ты уже много что делаешь правильно: слышишь себя, знаешь свои способы восстановления, умеешь отказываться от лишнего.</p>
+                        <p><strong>Твоя задача — не просто не выгореть, а поднять базовую планку энергии.</strong></p>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>✦ Два шага для тебя:</h3>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 1: Подними стандарт заботы о себе в одной сфере</h4>
+                        <p>Выбери: сон, еда, движение или отдых.</p>
+                        <div class="quote-box">«Как выглядит следующий уровень заботы о себе в этой сфере?»</div>
+                        <ul>
+                            <li>Ещё на 30 минут раньше ложиться</li>
+                            <li>Добавить больше белка/овощей</li>
+                            <li>10–15 минут движения в день</li>
+                        </ul>
+                        <p>Запиши один новый личный стандарт и попробуй прожить с ним месяц.</p>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 2: Настрой фильтр задач</h4>
+                        <p>Перед тем, как что-то на себя повесить, спрашивай:</p>
+                        <div class="quote-box">«Это за или против моей энергии?»</div>
+                        <p>Если против — можно ли делегировать, отказаться, сделать реже или проще?</p>
+                    </div>
+
+                    ${getHairSection()}
+                    ${getShareSection()}
+                </div>
+            `;
+        }
+
+        function getResult6(total) {
+            return `
+                <div class="result-card">
+                    <div class="result-score">
+                        <div class="score-circle">${total}</div>
+                        <div class="result-type">👑 «Хозяйка своей энергии»</div>
+                        <div class="result-subtitle">73–80 баллов</div>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>Про тебя:</h3>
+                        <p>Ты хорошо чувствуешь свои пределы, умеешь восстанавливаться и довольно осознанно распоряжаешься силами.</p>
+                        <p><strong>Сейчас задача — не только сохранять энергию, но и направлять её в то, что для тебя по-настоящему важно.</strong></p>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>✦ Два шага для тебя:</h3>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 1: Свяжи энергию с целями на 2026</h4>
+                        <div class="quote-box">«На что я хочу сознательно направить свою энергию в 2026 году?»</div>
+                        <p>Не абстрактное «жить лучше», а конкретнее:</p>
+                        <ul>
+                            <li>Отношения</li>
+                            <li>Самореализация</li>
+                            <li>Проект/бизнес</li>
+                            <li>Творчество</li>
+                            <li>Своё здоровье и внешний вид</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-block">
+                        <h4>Шаг 2: Личный код бережного отношения к себе</h4>
+                        <p>Выпиши минимум 3 своих правила:</p>
+                        <ul>
+                            <li>«Я не соглашаюсь на отношения, после которых мне плохо»</li>
+                            <li>«Я не забираю у сна время ради чужих задач»</li>
+                            <li>«Я не убегаю в телефон, когда мне плохо, а сначала спрашиваю, что мне реально нужно»</li>
+                        </ul>
+                        <p>Это твои личные границы с самой собой — их можно сохранить и держать перед глазами.</p>
+                    </div>
+
+                    ${getHairSection()}
+                    ${getShareSection()}
+                </div>
+            `;
+        }
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>
