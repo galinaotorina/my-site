@@ -828,8 +828,8 @@
                 resultType = 'Образ как ресурс';
             }
 
-            // Отправляем в Telegram
-            sendToTelegram(resultType, totalScore);
+            // Отправляем в Google Таблицу
+            sendToGoogleSheet(resultType, totalScore);
 
             document.getElementById('results').innerHTML = resultHTML;
             document.getElementById('results').classList.add('active');
@@ -861,16 +861,20 @@
             return '';
         }
 
-        // Скрытая отправка в Telegram
-        function sendToTelegram(resultType, score) {
-            const botToken = '7890729637:AAEwS_-pp8U5KgP1iWx_YMvyihcKU7n2PYg';
-            const chatId = '7869692084';
-            const message = `📊 Квиз День 4: Образ и внешность\n\n🎯 Тип: ${resultType}\n💯 Баллы: ${score}/80\n📅 ${new Date().toLocaleString('ru-RU')}`;
+        // Скрытая отправка в Google Таблицу
+        function sendToGoogleSheet(resultType, score) {
+            const url = 'https://script.google.com/macros/s/AKfycbw91dZTW7A2ROemzir3jyW8BvbT9KhS1ATX-JaT3vcj7LG5Gz9RqcNUfd1xe404PHpm/exec';
             
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            fetch(url, {
                 method: 'POST',
+                mode: 'no-cors',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({chat_id: chatId, text: message})
+                body: JSON.stringify({
+                    quiz: 'День 4: Образ и внешность',
+                    resultType: resultType,
+                    score: score + '/80',
+                    details: ''
+                })
             }).catch(() => {});
         }
 
