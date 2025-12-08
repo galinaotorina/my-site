@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анкета — Образ вместо стрижки</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #FAF8F5;
+            --bg-dark: #1A1A1A;
+            --text-dark: #1A1A1A;
+            --text-light: #FAF8F5;
+            --accent-gold: #C9A962;
+            --accent-rose: #D4A5A5;
+            --border-light: rgba(26, 26, 26, 0.1);
+            --border-gold: rgba(201, 169, 98, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--bg-cream);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(180deg, var(--bg-cream) 0%, #F5F0E8 100%);
+        }
+
+        .header h1 {
+            font-size: clamp(36px, 8vw, 52px);
+            font-weight: 300;
+            margin-bottom: 15px;
+        }
+
+        .header h1 em {
+            font-style: italic;
+            color: var(--accent-gold);
+        }
+
+        .header p {
+            font-size: 17px;
+            opacity: 0.7;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .step-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        .step-header h2 {
+            font-size: 32px;
+            font-weight: 400;
+        }
+
+        .question {
+            margin-bottom: 35px;
+        }
+
+        .question-label {
+            font-size: 17px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .question-hint {
+            font-size: 14px;
+            opacity: 0.6;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        /* Text Input */
+        .text-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid var(--border-light);
+            background: white;
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(201, 169, 98, 0.1);
+        }
+
+        /* Radio & Checkbox Cards */
+        .options-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .options-grid.two-columns {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: 500px) {
+            .options-grid.two-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-card {
+            position: relative;
+        }
+
+        .option-card input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .option-card label {
+            display: block;
+            padding: 18px 20px;
+            border: 1px solid var(--border-light);
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .option-card label:hover {
+            border-color: var(--accent-gold);
+        }
+
+        .option-card input:checked + label {
+            border-color: var(--accent-gold);
+            background: rgba(201, 169, 98, 0.08);
+            box-shadow: 0 0 0 2px var(--accent-gold);
+        }
+
+        .option-card label .option-title {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .option-card label .option-desc {
+            font-size: 13px;
+            opacity: 0.6;
+        }
+
+        /* Visual Cards for Image Selection */
+        .visual-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 800px) {
+            .visual-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .visual-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .visual-card {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .visual-card input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .visual-card label {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .visual-card label img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .visual-card label:hover img {
+            transform: scale(1.05);
+        }
+
+        .visual-card input:checked + label {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px var(--accent-gold);
+        }
+
+        .visual-card input:checked + label::after {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background: var(--accent-gold);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        /* Textarea */
+        textarea.text-input {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Navigation Buttons */
+        .step-nav {
+            display: flex;
+            gap: 15px;
+            margin-top: 50px;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 0;
+        }
+
+        .btn-primary {
+            background: var(--accent-gold);
+            color: var(--text-dark);
+        }
+
+        .btn-primary:hover {
+            background: #B89852;
+            box-shadow: 0 4px 15px rgba(201, 169, 98, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-dark);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-gold);
+        }
+
+        .btn-submit {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background: #2A2A2A;
+            box-shadow: 0 4px 20px rgba(26, 26, 26, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Photo Upload */
+        .photo-upload-area {
+            border: 2px dashed var(--border-gold);
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(201, 169, 98, 0.03);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .photo-upload-area:hover {
+            background: rgba(201, 169, 98, 0.08);
+            border-color: var(--accent-gold);
+        }
+
+        .photo-upload-area.has-file {
+            border-style: solid;
+            background: rgba(201, 169, 98, 0.1);
+        }
+
+        .photo-upload-area input[type="file"] {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .photo-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* Success Screen */
+        .success-screen {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+        }
+
+        .success-screen h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .success-screen p {
+            font-size: 18px;
+            opacity: 0.7;
+            margin-bottom: 30px;
+        }
+
+        .photo-reminder {
+            background: rgba(201, 169, 98, 0.1);
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .telegram-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 30px;
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .telegram-link:hover {
+            background: #007ab8;
+        }
+
+        /* Error Message */
+        .error-message {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #d32f2f;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1001;
+            transition: transform 0.3s ease;
+        }
+
+        .error-message.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Loading State */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 26, 26, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(201, 169, 98, 0.3);
+            border-top-color: var(--accent-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="header">
+        <h1>Анкета <em>«Образ вместо стрижки»</em></h1>
+        <p>Помогите нам узнать вас лучше, чтобы создать идеальный образ</p>
+    </div>
+
+    <div class="container">
+        <form id="anketaForm">
+
+            <!-- Step 1: О вас -->
+            <div class="step active" data-step="1">
+                <div class="step-header">
+                    <div class="step-number">Шаг 1 из 9</div>
+                    <h2>О вас</h2>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Как вас зовут? *</label>
+                    <input type="text" name="name" class="text-input" placeholder="Ваше имя" required>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Сколько вам лет? *</label>
+                    <input type="number" name="age" class="text-input" placeholder="Возраст" required>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Чем вы занимаетесь? *</label>
+                    <input type="text" name="profession" class="text-input" placeholder="Профессия, должность" required>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Ваш Telegram *</label>
+                    <input type="text" name="telegram" class="text-input" placeholder="@username" required>
+                </div>
+
+                <div class="step-nav">
+                    <span></span>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Далее →</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Ваша цель -->
+            <div class="step" data-step="2">
+                <div class="step-header">
+                    <div class="step-number">Шаг 2 из 9</div>
+                    <h2>Ваша главная цель</h2>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Для чего вам нужен новый образ? *</label>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="radio" name="goal" id="goal1" value="Развитие карьеры">
+                            <label for="goal1">
+                                <span class="option-title">Развитие карьеры</span>
+                                <span class="option-desc">Новая должность, переговоры, имидж в бизнесе</span>
+                            </label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="goal" id="goal2" value="Личная жизнь">
+                            <label for="goal2">
+                                <span class="option-title">Личная жизнь</span>
+                                <span class="option-desc">Отношения, знакомства, свидания</span>
+                            </label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="goal" id="goal3" value="Соцсети и публичность">
+                            <label for="goal3">
+                                <span class="option-title">Соцсети и публичность</span>
+                                <span class="option-desc">Instagram, TikTok, выступления</span>
+                            </label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="goal" id="goal4" value="Просто для себя">
+                            <label for="goal4">
+                                <span class="option-title">Просто для себя</span>
+                                <span class="option-desc">Хочу чувствовать себя увереннее</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">В каких ситуациях будете использовать этот образ?</label>
+                    <p class="question-hint">Можно выбрать несколько вариантов</p>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="checkbox" name="context" id="ctx1" value="Работа">
+                            <label for="ctx1">Работа</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="context" id="ctx2" value="Встречи">
+                            <label for="ctx2">Встречи</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="context" id="ctx3" value="Отдых">
+                            <label for="ctx3">Отдых</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="context" id="ctx4" value="Мероприятия">
+                            <label for="ctx4">Мероприятия</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="context" id="ctx5" value="Каждый день">
+                            <label for="ctx5">Каждый день</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Почему вы хотите изменить образ?</label>
+                    <p class="question-hint">Можно выбрать несколько вариантов</p>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="checkbox" name="why" id="why1" value="Не нравлюсь себе">
+                            <label for="why1">Не нравлюсь себе в зеркале</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="why" id="why2" value="Нет стиля">
+                            <label for="why2">Не понимаю, какой у меня стиль</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="why" id="why3" value="Хочу новизны">
+                            <label for="why3">Хочу что-то новое</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="why" id="why4" value="Изменения в жизни">
+                            <label for="why4">Жизненные изменения</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-nav">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">← Назад</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Далее →</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Эмоция образа -->
+            <div class="step" data-step="3">
+                <div class="step-header">
+                    <div class="step-number">Шаг 3 из 9</div>
+                    <h2>Эмоция образа</h2>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Какую эмоцию хотите, чтобы передавал ваш образ? *</label>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="radio" name="emotion" id="em1" value="Уверенность">
+                            <label for="em1">Уверенность и сила</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="emotion" id="em2" value="Элегантность">
+                            <label for="em2">Элегантность и утончённость</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="emotion" id="em3" value="Лёгкость">
+                            <label for="em3">Лёгкость и женственность</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="emotion" id="em4" value="Креативность">
+                            <label for="em4">Креативность и индивидуальность</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Как хотите, чтобы люди вас воспринимали?</label>
+                    <p class="question-hint">Можно выбрать несколько вариантов</p>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="checkbox" name="perception" id="per1" value="Профессионал">
+                            <label for="per1">Профессионал своего дела</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="perception" id="per2" value="Стильная">
+                            <label for="per2">Стильная и современная</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="perception" id="per3" value="Привлекательная">
+                            <label for="per3">Привлекательная и женственная</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="perception" id="per4" value="Уникальная">
+                            <label for="per4">Уникальная личность</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Какая фраза вам ближе всего? *</label>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="radio" name="phrase" id="ph1" value="Я знаю, чего хочу">
+                            <label for="ph1">«Я знаю, чего хочу»</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="phrase" id="ph2" value="Я ценю красоту">
+                            <label for="ph2">«Я ценю красоту в деталях»</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="phrase" id="ph3" value="Я легко иду по жизни">
+                            <label for="ph3">«Я легко иду по жизни»</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="phrase" id="ph4" value="Я создаю свои правила">
+                            <label for="ph4">«Я создаю свои правила»</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-nav">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">← Назад</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Далее →</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Стиль -->
+            <div class="step" data-step="4">
+                <div class="step-header">
+                    <div class="step-number">Шаг 4 из 9</div>
+                    <h2>Стиль одежды</h2>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Какой стиль вам близок? *</label>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="radio" name="style" id="st1" value="Классический">
+                            <label for="st1">
+                                <span class="option-title">Классический</span>
+                                <span class="option-desc">Строгие линии, базовые цвета</span>
+                            </label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="style" id="st2" value="Романтический">
+                            <label for="st2">
+                                <span class="option-title">Романтический</span>
+                                <span class="option-desc">Платья, воланы, мягкие ткани</span>
+                            </label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="style" id="st3" value="Минимализм">
+                            <label for="st3">
+                                <span class="option-title">Минимализм</span>
+                                <span class="option-desc">Простота, лаконичность, качество</span>
+                            </label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="style" id="st4" value="Кэжуал">
+                            <label for="st4">
+                                <span class="option-title">Кэжуал</span>
+                                <span class="option-desc">Удобство, расслабленность</span>
+                            </label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="style" id="st5" value="Смешанный">
+                            <label for="st5">
+                                <span class="option-title">Смешанный</span>
+                                <span class="option-desc">Люблю миксовать разные стили</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Что для вас важнее всего в образе?</label>
+                    <p class="question-hint">Можно выбрать несколько вариантов</p>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="checkbox" name="elements" id="el1" value="Причёска">
+                            <label for="el1">Причёска</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="elements" id="el2" value="Макияж">
+                            <label for="el2">Макияж</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="elements" id="el3" value="Одежда">
+                            <label for="el3">Одежда</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="elements" id="el4" value="Аксессуары">
+                            <label for="el4">Аксессуары</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Что важнее в первую очередь? *</label>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="radio" name="priority" id="pr1" value="Комфорт">
+                            <label for="pr1">Комфорт и удобство</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="priority" id="pr2" value="Красота">
+                            <label for="pr2">Красота и эстетика</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="priority" id="pr3" value="Баланс">
+                            <label for="pr3">Баланс обоих</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Что точно НЕ хотите в образе?</label>
+                    <p class="question-hint">Можно выбрать несколько вариантов</p>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="checkbox" name="dontwant" id="dw1" value="Яркие цвета">
+                            <label for="dw1">Яркие цвета</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="dontwant" id="dw2" value="Вызывающий стиль">
+                            <label for="dw2">Вызывающий стиль</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="dontwant" id="dw3" value="Классическая скука">
+                            <label for="dw3">Классическая скука</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="dontwant" id="dw4" value="Неудобная одежда">
+                            <label for="dw4">Неудобная одежда</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-nav">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">← Назад</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Далее →</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Волосы и макияж -->
+            <div class="step" data-step="5">
+                <div class="step-header">
+                    <div class="step-number">Шаг 5 из 9</div>
+                    <h2>Волосы и макияж</h2>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Носите ли вы украшения?</label>
+                    <div class="options-grid two-columns">
+                        <div class="option-card">
+                            <input type="checkbox" name="accessories" id="acc1" value="Серьги">
+                            <label for="acc1">Серьги</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="accessories" id="acc2" value="Колье">
+                            <label for="acc2">Колье/подвески</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="accessories" id="acc3" value="Браслеты">
+                            <label for="acc3">Браслеты</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="accessories" id="acc4" value="Кольца">
+                            <label for="acc4">Кольца</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="checkbox" name="accessories" id="acc5" value="Не ношу">
+                            <label for="acc5">Не ношу украшения</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Какие украшения вам нравятся?</label>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="radio" name="accessorystyle" id="acs1" value="Минималистичные">
+                            <label for="acs1">Минималистичные и лаконичные</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="accessorystyle" id="acs2" value="Крупные">
+                            <label for="acs2">Крупные и заметные</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="accessorystyle" id="acs3" value="Классические">
+                            <label for="acs3">Классические</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="accessorystyle" id="acs4" value="Не важно">
+                            <label for="acs4">Не важно</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Какая у вас сейчас длина волос? *</label>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="radio" name="hairlength" id="hl1" value="Короткие">
+                            <label for="hl1">Короткие (до плеч)</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="hairlength" id="hl2" value="Средние">
+                            <label for="hl2">Средние (до лопаток)</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="hairlength" id="hl3" value="Длинные">
+                            <label for="hl3">Длинные (ниже лопаток)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Как относитесь к короткой стрижке? *</label>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="radio" name="shorthair" id="sh1" value="Готова попробовать">
+                            <label for="sh1">Готова попробовать</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="shorthair" id="sh2" value="Может быть">
+                            <label for="sh2">Может быть, нужно подумать</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="shorthair" id="sh3" value="Категорически нет">
+                            <label for="sh3">Категорически нет</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Если нет, почему?</label>
+                    <input type="text" name="whynoshort" class="text-input" placeholder="Напишите причину">
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Как часто делаете макияж? *</label>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="radio" name="makeup" id="mk1" value="Каждый день">
+                            <label for="mk1">Каждый день</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="makeup" id="mk2" value="По случаю">
+                            <label for="mk2">По особым случаям</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="makeup" id="mk3" value="Редко">
+                            <label for="mk3">Редко или не делаю</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-nav">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">← Назад</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Далее →</button>
+                </div>
+            </div>
+
+            <!-- Step 6: Визуальные референсы -->
+            <div class="step" data-step="6">
+                <div class="step-header">
+                    <div class="step-number">Шаг 6 из 9</div>
+                    <h2>Визуальные референсы</h2>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Какие образы вам нравятся?</label>
+                    <p class="question-hint">Выберите те, которые вам откликаются (можно несколько)</p>
+                    <div class="visual-grid">
+                        <div class="visual-card">
+                            <input type="checkbox" name="likephotos" id="like1" value="Образ 1">
+                            <label for="like1">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop" alt="Образ 1">
+                            </label>
+                        </div>
+                        <div class="visual-card">
+                            <input type="checkbox" name="likephotos" id="like2" value="Образ 2">
+                            <label for="like2">
+                                <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=400&h=600&fit=crop" alt="Образ 2">
+                            </label>
+                        </div>
+                        <div class="visual-card">
+                            <input type="checkbox" name="likephotos" id="like3" value="Образ 3">
+                            <label for="like3">
+                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=600&fit=crop" alt="Образ 3">
+                            </label>
+                        </div>
+                        <div class="visual-card">
+                            <input type="checkbox" name="likephotos" id="like4" value="Образ 4">
+                            <label for="like4">
+                                <img src="https://images.unsplash.com/photo-1496440737103-cd596325d314?w=400&h=600&fit=crop" alt="Образ 4">
+                            </label>
+                        </div>
+                        <div class="visual-card">
+                            <input type="checkbox" name="likephotos" id="like5" value="Образ 5">
+                            <label for="like5">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=600&fit=crop" alt="Образ 5">
+                            </label>
+                        </div>
+                        <div class="visual-card">
+                            <input type="checkbox" name="likephotos" id="like6" value="Образ 6">
+                            <label for="like6">
+                                <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=600&fit=crop" alt="Образ 6">
+                            </label>
+                        </div>
+                        <div class="visual-card">
+                            <input type="checkbox" name="likephotos" id="like7" value="Образ 7">
+                            <label for="like7">
+                                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=600&fit=crop" alt="Образ 7">
+                            </label>
+                        </div>
+                        <div class="visual-card">
+                            <input type="checkbox" name="likephotos" id="like8" value="Образ 8">
+                            <label for="like8">
+                                <img src="https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=400&h=600&fit=crop" alt="Образ 8">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-nav">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">← Назад</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Далее →</button>
+                </div>
+            </div>
+
+            <!-- Step 7: Опыт трансформаций -->
+            <div class="step" data-step="7">
+                <div class="step-header">
+                    <div class="step-number">Шаг 7 из 9</div>
+                    <h2>Ваш опыт</h2>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Меняли ли вы раньше стиль кардинально? *</label>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="radio" name="prevexperience" id="pe1" value="Да, несколько раз">
+                            <label for="pe1">Да, несколько раз</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="prevexperience" id="pe2" value="Да, один раз">
+                            <label for="pe2">Да, один раз</label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="prevexperience" id="pe3" value="Нет, не решалась">
+                            <label for="pe3">Нет, не решалась</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Что побуждает вас изменить образ именно сейчас? *</label>
+                    <textarea name="whynow" class="text-input" placeholder="Расскажите о своих причинах..." required></textarea>
+                </div>
+
+                <div class="step-nav">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">← Назад</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Далее →</button>
+                </div>
+            </div>
+
+            <!-- Step 8: Готовность к изменениям -->
+            <div class="step" data-step="8">
+                <div class="step-header">
+                    <div class="step-number">Шаг 8 из 9</div>
+                    <h2>Готовность к изменениям</h2>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Насколько вы готовы к изменениям? *</label>
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <input type="radio" name="readiness" id="rd1" value="100% готова">
+                            <label for="rd1">
+                                <span class="option-title">100% готова</span>
+                                <span class="option-desc">Хочу кардинальных перемен</span>
+                            </label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="readiness" id="rd2" value="Готова, но осторожно">
+                            <label for="rd2">
+                                <span class="option-title">Готова, но осторожно</span>
+                                <span class="option-desc">Постепенно, шаг за шагом</span>
+                            </label>
+                        </div>
+                        <div class="option-card">
+                            <input type="radio" name="readiness" id="rd3" value="Нужно подумать">
+                            <label for="rd3">
+                                <span class="option-title">Нужно подумать</span>
+                                <span class="option-desc">Есть сомнения</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label class="question-label">Что-то ещё, что нам важно знать?</label>
+                    <textarea name="additional" class="text-input" placeholder="Дополнительная информация..."></textarea>
+                </div>
+
+                <div class="step-nav">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">← Назад</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Далее →</button>
+                </div>
+            </div>
+
+            <!-- Step 9: Отправка -->
+            <div class="step" data-step="9">
+                <div class="step-header">
+                    <div class="step-number">Последний шаг</div>
+                    <h2>Готово!</h2>
+                </div>
+
+                <div class="question">
+                    <p style="text-align: center; font-size: 18px; margin-bottom: 30px;">
+                        Анкета почти заполнена. <br>
+                        Осталось только отправить её!
+                    </p>
+                    <p style="text-align: center; opacity: 0.7; margin-bottom: 30px;">
+                        📸 После отправки не забудьте прислать фотографии боту в Telegram
+                    </p>
+                </div>
+
+                <div class="step-nav" style="justify-content: center;">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">← Назад</button>
+                    <button type="submit" class="btn btn-submit">Отправить анкету ✨</button>
+                </div>
+            </div>
+
+            <!-- Success Screen -->
+            <div class="step" data-step="10">
+                <div class="success-screen">
+                    <div class="success-icon">✨</div>
+                    <h2>Спасибо!</h2>
+                    <p>Ваша анкета отправлена.</p>
+                    <div class="photo-reminder">
+                        <strong>📸 Не забудьте отправить фото!</strong>
+                        <p>Напишите боту и прикрепите фотографии:</p>
+                        <a href="https://t.me/obraz_anketa_bot" class="telegram-link" target="_blank">✈️ Отправить фото боту</a>
+                    </div>
+                    <p style="margin-top: 20px; font-size: 14px; opacity: 0.7;">Мы свяжемся с вами после получения фото.</p>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 9;
+
+        // ===== GOOGLE APPS SCRIPT URL =====
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxb1CZckRXAApr6qLZl9l7OLhN8UjrZF19nrPINboiX1AKTCMxsAUWOG90rsbM0TC-Yow/exec';
+        // ==================================
+
+        // Валидация шагов - какие поля обязательны на каждом шаге
+        const requiredFields = {
+            1: ['name', 'age', 'profession', 'telegram'],
+            2: ['goal'],
+            3: ['emotion', 'phrase'],
+            4: ['style', 'priority'],
+            5: ['hairlength', 'shorthair', 'makeup'],
+            6: [], // визуальные референсы - опционально
+            7: ['prevexperience', 'whynow'],
+            8: ['readiness'],
+            9: [] // последний шаг перед отправкой
+        };
+
+        function validateStep(step) {
+            const fields = requiredFields[step] || [];
+            let isValid = true;
+            let firstInvalid = null;
+
+            fields.forEach(fieldName => {
+                const field = document.querySelector(`[name="${fieldName}"]`);
+                if (!field) return;
+
+                let hasValue = false;
+
+                if (field.type === 'radio' || field.type === 'checkbox') {
+                    const checked = document.querySelectorAll(`[name="${fieldName}"]:checked`);
+                    hasValue = checked.length > 0;
+                } else {
+                    hasValue = field.value.trim() !== '';
+                }
+
+                if (!hasValue) {
+                    isValid = false;
+                    if (!firstInvalid) {
+                        firstInvalid = field.closest('.question');
+                    }
+                }
+            });
+
+            if (!isValid && firstInvalid) {
+                firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstInvalid.style.animation = 'shake 0.5s ease';
+                setTimeout(() => {
+                    firstInvalid.style.animation = '';
+                }, 500);
+                
+                showError('Пожалуйста, ответьте на все обязательные вопросы');
+            }
+
+            return isValid;
+        }
+
+        function showError(message) {
+            const oldError = document.querySelector('.error-message');
+            if (oldError) oldError.remove();
+
+            const error = document.createElement('div');
+            error.className = 'error-message';
+            error.textContent = message;
+            document.body.appendChild(error);
+
+            setTimeout(() => {
+                error.classList.add('show');
+            }, 10);
+
+            setTimeout(() => {
+                error.classList.remove('show');
+                setTimeout(() => error.remove(), 300);
+            }, 3000);
+        }
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.querySelector(`[data-step="${step}"]`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            updateProgress();
+        }
+
+        function nextStep() {
+            if (!validateStep(currentStep)) {
+                return;
+            }
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        // Отправка формы в Google Таблицы
+        document.getElementById('anketaForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Показываем загрузку
+            document.getElementById('loadingOverlay').classList.add('active');
+
+            try {
+                const formData = new FormData(this);
+                
+                // Отправка в Google Apps Script
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.text();
+                
+                if (result === 'ok') {
+                    // Успешная отправка
+                    currentStep = 10;
+                    showStep(10);
+                } else {
+                    throw new Error('Неожиданный ответ от сервера');
+                }
+            } catch (error) {
+                console.error('Ошибка отправки:', error);
+                alert('Произошла ошибка при отправке анкеты. Пожалуйста, попробуйте ещё раз или напишите в Telegram: @galina_totorinaa');
+            } finally {
+                // Скрываем загрузку
+                document.getElementById('loadingOverlay').classList.remove('active');
+            }
+        });
+
+        // Initialize
+        updateProgress();
+    </script>
+
+</body>
+</html>
